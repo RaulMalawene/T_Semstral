@@ -1,5 +1,7 @@
 package gestaofila2;
 
+import Limitador.Principal;
+import PreMarcacao.PrimeiroPasso;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,6 +14,8 @@ public class LoginUsuario extends javax.swing.JFrame {
 
     public LoginUsuario() {
         initComponents();
+      textUs.setDocument(new Principal(60, Principal.TipoEntrada.NOME));
+      textSen.setDocument(new Principal(6, Principal.TipoEntrada.SENHA));
     }
 
     /**
@@ -36,7 +40,6 @@ public class LoginUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         textUs = new javax.swing.JTextField();
-        Show = new javax.swing.JButton();
         textSen = new javax.swing.JPasswordField();
         show = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -118,27 +121,20 @@ public class LoginUsuario extends javax.swing.JFrame {
         jLabel5.setText("Senha");
 
         textUs.setFont(new java.awt.Font("MicroSquare", 0, 18)); // NOI18N
+        textUs.setPreferredSize(new java.awt.Dimension(64, 30));
         textUs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textUsActionPerformed(evt);
             }
         });
 
-        Show.setText("Show");
-        Show.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ShowActionPerformed(evt);
-            }
-        });
-
         textSen.setFont(new java.awt.Font("MicroSquare", 0, 14)); // NOI18N
+        textSen.setPreferredSize(new java.awt.Dimension(64, 30));
         textSen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textSenActionPerformed(evt);
             }
         });
-
-        show.setText("jLabel3");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -154,12 +150,9 @@ public class LoginUsuario extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Show))
+                            .addComponent(jButton2)
                             .addComponent(textUs, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(textSen)))
+                            .addComponent(textSen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addComponent(show, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -170,20 +163,18 @@ public class LoginUsuario extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(show)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(show, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(textUs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textUs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(textSen, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(Show))
-                .addGap(35, 35, 35))
+                    .addComponent(textSen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5))
+                .addGap(29, 29, 29)
+                .addComponent(jButton2)
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -304,8 +295,7 @@ public class LoginUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         // TODO add your handling code here:
-        try{
+               try{
             FileReader open = new FileReader("Cadastro.txt");
             BufferedReader openning = new BufferedReader(open);
             ArrayList<Usuario> list = new ArrayList();
@@ -323,11 +313,12 @@ public class LoginUsuario extends javax.swing.JFrame {
                  String bi = lista[4];
                  String sexos = lista[5];
                  String celular = lista[6];
-                 String usuario = lista[7];
-                 String senha = lista[8];
-                 String senhaConf = lista[9];
-                 list.add(new Usuario( nome, apelido,dataNascimento, dataDesconhecida, bi, sexos, celular,usuario,senha,senhaConf));
-                 
+                 String email = lista[7];
+                 String usuario = lista[8];
+                 String senha = lista[9];
+                 String senhaConf = lista[10];
+                 list.add(new Usuario( nome, apelido,dataNascimento, dataDesconhecida, bi, sexos, 
+                         celular,email, usuario,senha,senhaConf));                 
                  linha = openning.readLine();
             }        
             
@@ -337,14 +328,27 @@ public class LoginUsuario extends javax.swing.JFrame {
               String usuario = textUs.getText();
             String senha = textSen.getText();
             
-            if(validar.getUsuario().equals(usuario) && validar.getSenha().equals(senha)){
+        if(textUs.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "INSIRA O USUARIO");
+            
+        }else if(textSen.getText().isEmpty()){  
+             JOptionPane.showMessageDialog(null, "INSIRA A SENHA");   
+                      
+            }else if(validar.getUsuario().equals(usuario) && validar.getSenha().equals(senha)){
                 JOptionPane.showMessageDialog(null, "CONCLUIDO");
                  this.hide();
                  PrimeiroPasso tela = new PrimeiroPasso();
                  tela.setVisible(true);
                  break;
-                  
-                 }else if (x == list.size() - 1){
+                 
+                }else if(validar.getEmail().equals(usuario) && validar.getSenha().equals(senha)){
+                        JOptionPane.showMessageDialog(null, "CONCLUIDO");
+                        this.hide();
+                        PrimeiroPasso tela = new PrimeiroPasso();
+                        tela.setVisible(true);
+                        break;
+                    
+                    }else if (x == list.size() - 1){
                        JOptionPane.showMessageDialog(null, "ERRO");
                     break;
                  } 
@@ -387,55 +391,12 @@ public class LoginUsuario extends javax.swing.JFrame {
         this.hide();
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void ShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowActionPerformed
-        // TODO add your handling code here:
-         try{
-            FileReader open = new FileReader("Cadastro.txt");
-            BufferedReader openning = new BufferedReader(open);
-            ArrayList<Usuario> list = new ArrayList();
-            
-            String[] lista;
-            String linha = openning.readLine();
-            
-            while(linha != null){
-                 lista = linha.split(";");
-                 
-                 String nome = lista[0];
-                 String apelido = lista[1];
-                 String dataNascimento = lista[2];
-                 String dataDesconhecida = lista[3];
-                 String bi = lista[4];
-                 String sexos = lista[5];
-                 String celular = lista[6];
-                 String usuario = lista[7];
-                 String senha = lista[8];
-                 String senhaConf = lista[9];
-                 list.add(new Usuario( nome, apelido,dataNascimento, celular, sexos,dataDesconhecida,bi,usuario,senha,senhaConf));
-                 
-                 linha = openning.readLine();
-            }        
-            String usuario = textUs.getText();
-            String senha = textSen.getText();
-            
-        for(int x = 0; x < list.size(); x++){
-            Usuario validar = list.get(x);
-           JOptionPane.showMessageDialog(null,"Usuario: "+validar.getUsuario().toUpperCase()+"\n"+
-                                                  "Senha: "+validar.getSenha().toUpperCase());
-                show.setText(validar.getSenha());
-              }
-        }catch(Exception ex){
-            Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
- 
-        }
-    }//GEN-LAST:event_ShowActionPerformed
-
     private void textSenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textSenActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Show;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

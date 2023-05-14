@@ -1,5 +1,6 @@
 package gestaofila2;
 
+import Limitador.Principal;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ public class SenhaAcesso extends javax.swing.JFrame {
 
     public SenhaAcesso() {
         initComponents();
+        senha.setDocument(new Principal(8, Principal.TipoEntrada.SENHA));
     }
 
     /**
@@ -215,13 +217,16 @@ public class SenhaAcesso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        int senha00 = 00000;       
-        
+        if(senha.getText().equals("")){
+             JOptionPane.showMessageDialog(null, "E Obrigatoria Colocar a Senha", "AVISO", JOptionPane.WARNING_MESSAGE);
+        return;
+        }
+        String senha00 = "GestaoFila";       
+        String senh = senha.getText();
         if(senha.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "INSIRA A SENHA");
             
-        }else if(senha.getText().equals(senha00) /*&& senha.getText().startsWith("#") && senha.getText().contains("#")*/){
+        }else if(senh.contains(senha00) /*&& senha.getText().startsWith("#") && senha.getText().contains("#")*/){
              JOptionPane.showMessageDialog(null, "CONCLUIDO");
              LoginGestores tela = new LoginGestores();
              tela.setVisible(true);

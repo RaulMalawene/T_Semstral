@@ -1,8 +1,13 @@
 package gestaofila2;
 
+
+import Limitador.Principal;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -12,6 +17,9 @@ public class LoginGestores extends javax.swing.JFrame {
 
     public LoginGestores() {
         initComponents();
+ nomeADM.setDocument(new Principal(6, Principal.TipoEntrada.NOME));
+ senhaAdm.setDocument(new Principal(6, Principal.TipoEntrada.SENHA));
+        
     }
 
     /**
@@ -252,9 +260,14 @@ public class LoginGestores extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       // TODO add your handling code here:
-           
-       
+         if(nomeADM.getText().equals("")){
+              JOptionPane.showMessageDialog(null, "E Obrigatoria preencher o Campo Nome", "AVISO", JOptionPane.WARNING_MESSAGE);
+        return;
+         }  
+         if(senhaAdm.getText().equals("")){
+              JOptionPane.showMessageDialog(null, "E Obrigatoria preencher o Campo Senha", "AVISO", JOptionPane.WARNING_MESSAGE);
+        return;
+         }
        try{
            FileReader abrir = new FileReader("Funcionarios.txt");
            BufferedReader ler = new BufferedReader(abrir);
@@ -272,8 +285,7 @@ public class LoginGestores extends javax.swing.JFrame {
                String senha = listas[4];
                listar.add(new Funcionarios(nomeFuncionario, idade, sexo, UsuarioFuncionario, senha));
                line = ler.readLine();
-           }
-           
+           }        
            
             FileReader open = new FileReader("Actualizacao administrador.txt");
             BufferedReader opened = new BufferedReader(open);
@@ -286,24 +298,20 @@ public class LoginGestores extends javax.swing.JFrame {
                 lista = linha.split(";");
                 
                  String nome = lista[0];
-                 String senha = lista[1];
-                 String idade = lista[2];
-                 String sexo = lista[3];
+                 String idade = lista[1];
+                 String sexo = lista[2];
+                 String senha  = lista[3];
                  list.add(new Administrador(nome, idade,sexo, senha));
                  
                  linha = opened.readLine();
             }
             
-            String nomADM = nomeADM.getText();
-            String senhaADM = senhaAdm.getText();
-            
             for(int x = 0; x < list.size(); x++){
                 Administrador adm = list.get(x);
                 Funcionarios func = listar.get(x);
-                JOptionPane.showMessageDialog(this, adm.getNome().toUpperCase()+"\n"
-                                                   +adm.getSenha().toUpperCase());
-                JOptionPane.showMessageDialog(this, func.getUsuarioFuncionario().toUpperCase()
-                                                    +"\n"+func.getSenha().toUpperCase());
+                
+                 String nomADM = nomeADM.getText();
+                 String senhaADM = senhaAdm.getText();
                 
                 if(adm.getNome().equals(nomADM) && adm.getSenha().equals(senhaADM)){
                     JOptionPane.showMessageDialog(this, "CONCLUIDO");
@@ -312,14 +320,28 @@ public class LoginGestores extends javax.swing.JFrame {
                     this.hide();
                     break;
                     
-                    }else if(func.getUsuarioFuncionario().equals(nomeADM) && func.getSenha().equals(senhaADM)){
-                             JOptionPane.showMessageDialog(this, "CONCLUIDO");
-                             UsuarioFuncionario tela = new UsuarioFuncionario();
-                             tela.setVisible(true);
-                             this.hide();
-                             break;
+                    }else if(func.getUsuarioFuncionario().equals(nomADM) && func.getSenha().equals(senhaADM)){
+                         try{
+                            FileWriter escrever = new FileWriter("Historico.txt", true);
+                            BufferedWriter openning= new BufferedWriter(escrever);
+            
+                            Date data = new Date();
+                            String calendar = data.toString();
+                            openning.write(func.getUsuarioFuncionario()+";"+calendar);
+        
+                                    openning.newLine();
+                                    openning.close();
+                                    open.close();
+            
+                                }catch(Exception e){           
+                                }
+                                    JOptionPane.showMessageDialog(this, "CONCLUIDO");
+                                    UsuarioFuncionario tela = new UsuarioFuncionario();
+                                    tela.setVisible(true);
+                                    this.hide();
+                                    break;
                         
-                        }else{
+                        }else if(x == list.size() - 1){
                              JOptionPane.showMessageDialog(this, "ACESSO NEGADO");
                              break;
                         }

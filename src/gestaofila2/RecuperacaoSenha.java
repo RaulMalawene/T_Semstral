@@ -428,10 +428,12 @@ public class RecuperacaoSenha extends javax.swing.JFrame {
                  String bi = lista[4];
                  String sexos = lista[5];
                  String celular = lista[6];
-                 String usuario = lista[7];
-                 String senha = lista[8];
-                 String senhaConf = lista[9];
-                 list.add(new Usuario(nome, apelido, dataNascimento, dataDesconhecida, bi, sexos, celular, usuario,senha,senhaConf));
+                 String email = lista[7];
+                 String usuario = lista[8];
+                 String senha = lista[9];
+                 String senhaConf = lista[10];
+                 list.add(new Usuario(nome, apelido, dataNascimento, dataDesconhecida, bi, sexos, celular,
+                         email,usuario,senha,senhaConf));
                  
                  linha = openning.readLine();
             }                      
@@ -461,9 +463,15 @@ public class RecuperacaoSenha extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null, "SENHA: "+validar.getSenha().toUpperCase());
                  break;
                 
-                    }else if(!validar.getUsuario().equals(usuario) && validar.getNome().equals(nome) && validar.getCelular().equals(celular)
+                }else if(validar.getEmail().equals(usuario) && validar.getNome().equals(nome) && validar.getCelular().equals(celular) 
+                 && !validar.getSenha().equals(senha) && !validar.getUsuario().equals(usuario)){        
+                        JOptionPane.showMessageDialog(null, "SENHA: "+validar.getSenha().toUpperCase());
+                        break;
+        
+                        }else if(!validar.getUsuario().equals(usuario) && validar.getNome().equals(nome) && validar.getCelular().equals(celular)
                              && validar.getSenha().equals(senha)){
-                             JOptionPane.showMessageDialog(null, "USUARIO: "+validar.getUsuario().toUpperCase());
+                             JOptionPane.showMessageDialog(null, "USUARIO: "+validar.getUsuario().toUpperCase()+"\n"+
+                                                                 "EMAIL : "+ validar.getEmail().toUpperCase());
                              break;
                        
                             }else if( validar.getNome().equals(nome) && validar.getCelular().equals(celular)){
@@ -548,6 +556,7 @@ public class RecuperacaoSenha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -555,6 +564,7 @@ public class RecuperacaoSenha extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel47;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;

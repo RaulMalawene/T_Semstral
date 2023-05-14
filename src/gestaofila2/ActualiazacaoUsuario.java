@@ -338,10 +338,12 @@ public class ActualiazacaoUsuario extends javax.swing.JFrame {
                  String bi = lista[4];
                  String sexos = lista[5];
                  String celular = lista[6];
-                 String usuario = lista[7];
-                 String senha = lista[8];
-                 String senhaConf = lista[9];
-                 list.add(new Usuario( nome, apelido,dataNascimento, celular, sexos,dataDesconhecida,bi,usuario,senha,senhaConf));
+                 String email = lista[7];
+                 String usuario = lista[8];
+                 String senha = lista[9];
+                 String senhaConf = lista[10];
+                 list.add(new Usuario( nome, apelido,dataNascimento, celular, sexos,dataDesconhecida,bi,
+                         email ,usuario,senha,senhaConf));
                  
                  linha = openning.readLine();
             }  
@@ -366,6 +368,11 @@ public class ActualiazacaoUsuario extends javax.swing.JFrame {
                
                 UsuarioA.setText(usus);
                 novaSenha.setText(senha01);
+                
+                codigoVer.setText("");
+                codigo.setText("");
+                Apelido.setText("");
+                
                 break;
             
            }else if(x == list.size() - 1){
